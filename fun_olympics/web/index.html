@@ -36,6 +36,22 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyB9wdjee23frVKdUGkBx_8T1PfVPoWGha8",
+      authDomain: "funolympics-kenneth.firebaseapp.com",
+      projectId: "funolympics-kenneth",
+      storageBucket: "funolympics-kenneth.appspot.com",
+      messagingSenderId: "540467591067",
+      appId: "1:540467591067:web:3aaba2c71e77355717933e"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
