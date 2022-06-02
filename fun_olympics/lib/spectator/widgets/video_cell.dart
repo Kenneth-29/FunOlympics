@@ -4,6 +4,7 @@ import '../model/video.dart';
 
 class VideoCell extends StatelessWidget {
   final Video video;
+  // ignore: use_key_in_widget_constructors
   const VideoCell(this.video);
 
   @override
@@ -11,7 +12,7 @@ class VideoCell extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blueAccent, width: 2),
+        side: const BorderSide(color: Colors.blueAccent, width: 2),
         borderRadius: BorderRadius.circular(10),
       ),
       color: Colors.white70,
@@ -38,13 +39,14 @@ class VideoCell extends StatelessWidget {
                 ),
               )),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Text(
                   video.title.toString(),
                   maxLines: 2,
                   softWrap: true,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w400),
                 ),
               )
             ],

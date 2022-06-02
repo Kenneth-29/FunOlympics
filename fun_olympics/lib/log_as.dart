@@ -23,13 +23,13 @@ class LogAs extends StatelessWidget {
           Row(
             children: [
               ElevatedButton(
-                child: Text('Spectator'),
+                child: const Text('Spectator'),
                 onPressed: () {
                   Navigator.of(context).pushNamed(SpectatorLogin.route);
                 },
               ),
               ElevatedButton(
-                child: Text('Broadcaster'),
+                child: const Text('Broadcaster'),
                 onPressed: () {
                   Navigator.of(context).pushNamed(BroadcasterLogin.route);
                 },

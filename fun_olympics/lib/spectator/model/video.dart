@@ -14,6 +14,7 @@ class Video {
   }
 
   Map<String, dynamic> toJson() {
+    // ignore: unnecessary_new, prefer_collection_literals
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
     data['title'] = title;

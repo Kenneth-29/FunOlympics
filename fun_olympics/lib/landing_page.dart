@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fun_olympics/broadcaster/pages/broadcaster_login.dart';
-import 'package:fun_olympics/spectator/login_as_page.dart';
 import 'package:fun_olympics/spectator/pages/spectator_login.dart';
 
 class LandingPage extends StatelessWidget {
@@ -10,15 +9,22 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/img.jpg"), fit: BoxFit.cover),
+        ),
+        alignment: Alignment.bottomCenter,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Welcome to FunOlympics',
               style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.black,
+                  fontSize: 70,
+                  color: Colors.white,
                   fontWeight: FontWeight.w800,
                   fontStyle: FontStyle.italic),
             ),
@@ -28,13 +34,20 @@ class LandingPage extends StatelessWidget {
             const Text(
               'The home of sports entertainent from the comfort of your home or \n anywhere in the world.',
               textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
             const SizedBox(
               height: 70,
             ),
             const Text(
               'Continue as:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 20,
@@ -43,6 +56,9 @@ class LandingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.blueAccent[700])),
                   onPressed: () {
                     Navigator.of(context).pushNamed(BroadcasterLogin.route);
                   },
@@ -52,6 +68,9 @@ class LandingPage extends StatelessWidget {
                   width: 10,
                 ),
                 ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.blueAccent[700])),
                   onPressed: () {
                     Navigator.of(context).pushNamed(SpectatorLogin.route);
                   },

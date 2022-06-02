@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fun_olympics/broadcaster/model/broadcaster_model.dart';
+import 'package:fun_olympics/broadcaster/utils/database_broadcaster.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -9,11 +11,11 @@ String? userEmail;
 
 class AuthBroadcaster {
 //register for broadcaster
-// TODO register with model object
   Future<User?> registerBroadcaster(
-      String name, String email, String password) async {
+      String name, String email, String password, bool approval) async {
     await Firebase.initializeApp();
     User? user;
+    bool status = false;
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -27,6 +29,15 @@ class AuthBroadcaster {
       if (user != null) {
         uid = user.uid;
         userEmail = user.email;
+
+        lBrod myUser = lBrod(
+            id: user.uid,
+            name: name,
+            email: email,
+            password: password,
+            approval: status);
+
+        await BStore.createBroadcaster(myUser);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

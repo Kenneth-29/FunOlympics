@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:fun_olympics/spectator/model/spectator_model.dart';
+import 'package:fun_olympics/spectator/utils/database_spectator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,7 +12,8 @@ String? userEmail;
 class AuthUser {
   //Register
 
-  Future<User?> register(String name, String email, String password) async {
+  Future<User?> register(
+      String name, String country, String email, String password) async {
     await Firebase.initializeApp();
     User? user;
     try {
@@ -27,6 +29,15 @@ class AuthUser {
       if (user != null) {
         uid = user.uid;
         userEmail = user.email;
+
+        lSpec myUser = lSpec(
+            id: user.uid,
+            name: name,
+            country: country,
+            email: email,
+            password: password);
+
+        await SStore.createSpectator(myUser);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

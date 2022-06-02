@@ -9,6 +9,8 @@ import 'package:fun_olympics/landing_page.dart';
 import 'package:fun_olympics/spectator/login_as_page.dart';
 import 'package:fun_olympics/spectator/pages/spectator_home.dart';
 import 'package:fun_olympics/spectator/pages/spectator_login.dart';
+import 'package:fun_olympics/spectator/pages/spectator_profile.dart';
+import 'package:fun_olympics/spectator/pages/spectator_signup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +45,9 @@ class MyApp extends StatelessWidget {
         BroadcasterHome.route: (context) => const BroadcasterHome(),
         //Spectator
         SpectatorLogin.route: (context) => const SpectatorLogin(),
+        SpectatorRegister.route: (context) => const SpectatorRegister(),
         Home.route: (context) => const Home(),
+        Profile.route: (context) => const Profile(),
       },
       title: 'Fun Olympics',
       theme: ThemeData(

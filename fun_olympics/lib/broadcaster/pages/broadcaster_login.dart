@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fun_olympics/broadcaster/pages/broadcaster_home.dart';
 import 'package:fun_olympics/broadcaster/pages/broadcaster_signup.dart';
 import 'package:fun_olympics/broadcaster/utils/authentication_broadcaster.dart';
-import 'package:fun_olympics/spectator/pages/spectator_login.dart';
 
 import '../../global/utils/validation.dart';
+import '../../landing_page.dart';
 
 class BroadcasterLogin extends StatefulWidget {
   static const String route = '/broadcaster-login';
@@ -33,6 +33,7 @@ class _BroadcasterLoginState extends State<BroadcasterLogin> {
       }),
       child: Scaffold(
         appBar: AppBar(
+          // ignore: prefer_const_constructors
           shape: Border(
             bottom: const BorderSide(
               color: Colors.blueAccent,
@@ -40,10 +41,16 @@ class _BroadcasterLoginState extends State<BroadcasterLogin> {
             ),
           ),
           leadingWidth: 200.0,
-          leading: Padding(
-            padding: EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              'images/fo_logo.png',
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(LandingPage.route, (route) => false);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Image.asset(
+                'images/fo_logo.png',
+              ),
             ),
           ),
           backgroundColor: Colors.white,
@@ -100,31 +107,34 @@ class _BroadcasterLoginState extends State<BroadcasterLogin> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height: 50,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text('Login'),
-                      onPressed: () async {
-                        if (_fkey.currentState!.validate()) {
-                          setState(() {
-                            _isEditing = true;
-                          });
-                        }
-                        final User? broadcaster = await _auth.loginBroadcaster(
-                          _emailCtrl.text,
-                          _passCtrl.text,
-                        );
-                        setState(() {
-                          _isEditing = false;
-                        });
-                        if (broadcaster != null) {
-                          Navigator.of(context)
-                              .pushNamed(BroadcasterHome.route);
-                        }
-                      },
-                    ),
-                  ),
+                  _isEditing
+                      ? const LinearProgressIndicator()
+                      : Container(
+                          height: 50,
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: ElevatedButton(
+                            child: const Text('Login'),
+                            onPressed: () async {
+                              if (_fkey.currentState!.validate()) {
+                                setState(() {
+                                  _isEditing = true;
+                                });
+                              }
+                              final User? broadcaster =
+                                  await _auth.loginBroadcaster(
+                                _emailCtrl.text,
+                                _passCtrl.text,
+                              );
+                              setState(() {
+                                _isEditing = false;
+                              });
+                              if (broadcaster != null) {
+                                Navigator.of(context)
+                                    .pushNamed(BroadcasterHome.route);
+                              }
+                            },
+                          ),
+                        ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -137,8 +147,8 @@ class _BroadcasterLoginState extends State<BroadcasterLogin> {
                           style: TextStyle(fontSize: 20),
                         ),
                         onPressed: () {
-                          // Navigator.of(context)
-                          //     .pushNamed(BroadcasterSignup.route);
+                          Navigator.of(context)
+                              .pushNamed(BroadcasterSignup.route);
                         },
                       )
                     ],

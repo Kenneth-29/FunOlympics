@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_olympics/spectator/pages/spectator_home.dart';
+import 'package:fun_olympics/spectator/pages/spectator_signup.dart';
 import 'package:fun_olympics/spectator/utils/authentication.dart';
 
 import '../../global/utils/validation.dart';
+import '../../landing_page.dart';
 
 class SpectatorLogin extends StatefulWidget {
   static const String route = '/spectator-login';
@@ -31,17 +33,23 @@ class _SpectatorLoginState extends State<SpectatorLogin> {
       }),
       child: Scaffold(
         appBar: AppBar(
-          shape: Border(
-            bottom: const BorderSide(
+          shape: const Border(
+            bottom: BorderSide(
               color: Colors.blueAccent,
               width: 2,
             ),
           ),
           leadingWidth: 200.0,
-          leading: Padding(
-            padding: EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              'images/fo_logo.png',
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(LandingPage.route, (route) => false);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Image.asset(
+                'images/fo_logo.png',
+              ),
             ),
           ),
           backgroundColor: Colors.white,
@@ -98,30 +106,32 @@ class _SpectatorLoginState extends State<SpectatorLogin> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height: 50,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text('Login'),
-                      onPressed: () async {
-                        if (_fkey.currentState!.validate()) {
-                          setState(() {
-                            _isEditing = true;
-                          });
-                        }
-                        final User? user = await _auth.login(
-                          _emailCtrl.text,
-                          _passCtrl.text,
-                        );
-                        setState(() {
-                          _isEditing = false;
-                        });
-                        if (user != null) {
-                          Navigator.of(context).pushNamed(Home.route);
-                        }
-                      },
-                    ),
-                  ),
+                  _isEditing
+                      ? const LinearProgressIndicator()
+                      : Container(
+                          height: 50,
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: ElevatedButton(
+                            child: const Text('Login'),
+                            onPressed: () async {
+                              if (_fkey.currentState!.validate()) {
+                                setState(() {
+                                  _isEditing = true;
+                                });
+                              }
+                              final User? user = await _auth.login(
+                                _emailCtrl.text,
+                                _passCtrl.text,
+                              );
+                              setState(() {
+                                _isEditing = false;
+                              });
+                              if (user != null) {
+                                Navigator.of(context).pushNamed(Home.route);
+                              }
+                            },
+                          ),
+                        ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -134,7 +144,8 @@ class _SpectatorLoginState extends State<SpectatorLogin> {
                           style: TextStyle(fontSize: 20),
                         ),
                         onPressed: () {
-                          //signup screen
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              SpectatorRegister.route, (route) => false);
                         },
                       )
                     ],

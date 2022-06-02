@@ -11,7 +11,7 @@ class LogAs extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Continue as:',
             style: TextStyle(
                 fontSize: 30,
@@ -19,7 +19,7 @@ class LogAs extends StatelessWidget {
                 fontWeight: FontWeight.w800,
                 fontStyle: FontStyle.italic),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Row(
@@ -27,14 +27,14 @@ class LogAs extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {},
-                child: Text('Broadcaster'),
+                child: const Text('Broadcaster'),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: Text('Spectator'),
+                child: const Text('Spectator'),
               )
             ],
           ),

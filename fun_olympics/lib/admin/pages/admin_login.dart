@@ -30,15 +30,15 @@ class _AdminLoginState extends State<AdminLogin> {
       }),
       child: Scaffold(
         appBar: AppBar(
-          shape: Border(
-            bottom: const BorderSide(
+          shape: const Border(
+            bottom: BorderSide(
               color: Colors.blueAccent,
               width: 2,
             ),
           ),
           leadingWidth: 200.0,
           leading: Padding(
-            padding: EdgeInsets.only(left: 12.0),
+            padding: const EdgeInsets.only(left: 12.0),
             child: Image.asset(
               'images/fo_logo.png',
             ),
@@ -107,30 +107,32 @@ class _AdminLoginState extends State<AdminLogin> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                          height: 50,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: ElevatedButton(
-                            child: const Text('Login'),
-                            onPressed: () async {
-                              if (_fkey.currentState!.validate()) {
-                                setState(() {
-                                  _isEditing = true;
-                                });
-                              }
-                              final User? admin = await _auth.loginAdmin(
-                                _emailCtrl.text,
-                                _passCtrl.text,
-                              );
-                              setState(() {
-                                _isEditing = false;
-                              });
-                              if (admin != null) {
-                                Navigator.of(context)
-                                    .pushNamed(AdminDashboard.route);
-                              }
-                            },
-                          )),
+                      _isEditing
+                          ? const LinearProgressIndicator()
+                          : Container(
+                              height: 50,
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: ElevatedButton(
+                                child: const Text('Login'),
+                                onPressed: () async {
+                                  if (_fkey.currentState!.validate()) {
+                                    setState(() {
+                                      _isEditing = true;
+                                    });
+                                  }
+                                  final User? admin = await _auth.loginAdmin(
+                                    _emailCtrl.text,
+                                    _passCtrl.text,
+                                  );
+                                  setState(() {
+                                    _isEditing = false;
+                                  });
+                                  if (admin != null) {
+                                    Navigator.of(context)
+                                        .pushNamed(AdminDashboard.route);
+                                  }
+                                },
+                              )),
                     ],
                   ),
                 ),
